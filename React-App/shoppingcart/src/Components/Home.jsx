@@ -1,21 +1,18 @@
 import React from "react"
 import data from "./data.json"
+import ProductDashBoard from "./ProductDashBoard"
 
-function Home(){
+function Home(props){
+
+    const {app} = props
+    const handleClick = (id)=>{
+        let item = data.find(item=>item.id===id)
+        app.addTocart(item)
+    }
+
     return(
     <div>
-        <h1>This is home component</h1>
-        {data.map( item => {
-            return (
-                <>
-                    <div>{item.name}</div>
-                    <div>{item.id}</div>
-                    <div>{item.price}</div>
-                    <img src={item.image} />
-                    <button>Add</button>
-                 </>   
-                )
-})}
+        {data.map( item => <ProductDashBoard key={item.id} {...item} handleClick={handleClick}/> )}
     </div>
     )
 }
